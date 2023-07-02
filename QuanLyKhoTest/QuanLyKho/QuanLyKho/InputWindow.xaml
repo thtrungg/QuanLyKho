@@ -1,0 +1,80 @@
+﻿<Window x:Class="QuanLyKho.InputWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyKho"
+        xmlns:uc="clr-namespace:QuanLyKho.UserControler"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        x:Name="window"
+        DataContext="{StaticResource InputVM}"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Nhap kho" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <uc:UserControlerTrung Tag="{Binding Title, ElementName=window}"></uc:UserControlerTrung>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Margin="15" Grid.Row="0">
+                <WrapPanel Margin="0 0 0 10">
+                    <TextBox Width="150" Text="{Binding ObjectDisplayName,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Ten san pham" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <DatePicker SelectedDate="{Binding DateInput,UpdateSourceTrigger=PropertyChanged}" Margin="5" Width="150" materialDesign:HintAssist.Hint="Ngay nhap" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                    <TextBox Width="150" Text="{Binding Count ,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="So luong" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding PriceInput ,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Gia nhap" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding PriceOutput ,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Gia xuat" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding Status ,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Status" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="15" Grid.Row="1">
+                <WrapPanel>
+                    <Button Command="{Binding AddCommand}" Content="Them" Margin="10" Width="100"></Button>
+                    <Button Command="{Binding DelCommand}" Content="Xoa" Margin="10" Width="100"></Button>
+                    <Button Command="{Binding EditCommand}" Content="Sua" Margin="10" Width="100"></Button>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="15" Grid.Row="2" VerticalAlignment="Stretch" Background="Gray">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Ten san pham" DisplayMemberBinding="{Binding Object.DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Ngay nhap" DisplayMemberBinding="{Binding Input.DateInput}"></GridViewColumn>
+                                <GridViewColumn Header="So luong" DisplayMemberBinding="{Binding Count}"></GridViewColumn>
+                                <GridViewColumn Header="Gia nhap" DisplayMemberBinding="{Binding InputPrice}"></GridViewColumn>
+                                <GridViewColumn Header="Gia xuat" DisplayMemberBinding="{Binding OutputPrice}"></GridViewColumn>
+                                <GridViewColumn Header="Trang thai nhap" DisplayMemberBinding="{Binding Status}"></GridViewColumn>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,82 @@
+﻿<Window x:Class="QuanLyKho.SuplierWindows"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyKho"
+        xmlns:uc="clr-namespace:QuanLyKho.UserControler"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        x:Name="window"
+        DataContext="{StaticResource SuplierVM}"
+
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="Nha Cung Cap" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <uc:UserControlerTrung Tag="{Binding Title, ElementName=window}"></uc:UserControlerTrung>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <materialDesign:Card Margin="15" Grid.Row="0">
+                <WrapPanel Margin="0 0 0 10">
+                    <TextBox Width="150" Text="{Binding DisplayName,UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Ten nha cung cap" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding Address,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Dia chi" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding Phone,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Dien thoai" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding Email,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <TextBox Width="150" Text="{Binding MoreInfo,UpdateSourceTrigger=PropertyChanged}" Margin="5" materialDesign:HintAssist.Hint="Thong tin them" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                    <DatePicker SelectedDate="{Binding ContractDate,UpdateSourceTrigger=PropertyChanged,StringFormat='dd/MM/yyyy'}" Margin="5" Width="150" materialDesign:HintAssist.Hint="Ngay hop tac" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"/>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="15" Grid.Row="1">
+                <WrapPanel>
+                    <Button Command="{Binding AddCommand}" Content="Them" Margin="10" Width="100"></Button>
+                    <Button Command="{Binding DelCommand}" Content="Xoa" Margin="10" Width="100"></Button>
+                    <Button Command="{Binding EditCommand}" Content="Sua" Margin="10" Width="100"></Button>
+
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Margin="15" Grid.Row="2" VerticalAlignment="Stretch" Background="Gray">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding List}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                                <GridViewColumn Header="Ten don vi do" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                <GridViewColumn Header="Dia chi" DisplayMemberBinding="{Binding Address}"></GridViewColumn>
+                                <GridViewColumn Header="Dien thoai" DisplayMemberBinding="{Binding Phone}"></GridViewColumn>
+                                <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"></GridViewColumn>
+                                <GridViewColumn Header="Thong tin them" DisplayMemberBinding="{Binding MoreInfo}"></GridViewColumn>
+                                <GridViewColumn Header="Ngay hop tac" DisplayMemberBinding="{Binding ContractDate, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>
