@@ -1,0 +1,2 @@
+# QuanLyKho
+Warehouse Management Software
